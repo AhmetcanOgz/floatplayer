@@ -1,39 +1,45 @@
+**English** | [Türkçe](README.tr.md)
+
 # FloatPlayer
 
-Tüm masaüstlerinde ve tam ekran uygulamaların üstünde duran, çerçevesiz bir macOS video penceresi
-(Swift + AppKit + WKWebView, SwiftPM ile derlenir; Xcode gerekmez).
+A frameless macOS video window that floats above all desktops and full-screen apps
+(Swift + AppKit + WKWebView, built with SwiftPM; Xcode not required).
 
-## Kurulum
+## Installation
 
 ```sh
-bash scripts/install.sh     # derler, ~/Applications/FloatPlayer.app olarak kurar ve açar
-bash scripts/uninstall.sh   # kaldırır (--purge: ayarları ve çerezleri de siler)
-bash scripts/make-app.sh    # sadece dist/FloatPlayer.app üretir
+bash scripts/install.sh     # builds, installs as ~/Applications/FloatPlayer.app and launches it
+bash scripts/uninstall.sh   # removes it (--purge: also deletes settings and cookies)
+bash scripts/make-app.sh    # only produces dist/FloatPlayer.app
 ```
 
-## Kısayollar (pencere seçiliyken; hepsi menü çubuğu menüsünde de var)
+## Shortcuts (while the window is focused; all are also in the menu bar menu)
 
-| Kısayol | İşlev |
+| Shortcut | Action |
 | --- | --- |
-| ⌘L | URL aç |
-| ⇧⌘V | Panodaki bağlantıyı doğrudan aç |
-| ⌘R | Yenile |
-| ⌘W | Pencereyi gizle (menüden geri gösterilir) |
-| ⌘] / ⌘[ | Saydamlık artır / azalt (%30–%100) |
-| ⌘= / ⌘- | Yakınlaştır / uzaklaştır |
-| ⌥⌘↓ / ⌥⌘↑ | Üst-alt siyah bantları kırp / kırpmayı azalt |
-| ⌥⌘→ / ⌥⌘← | Yan siyah bantları kırp / kırpmayı azalt |
-| ⌘0 | Yakınlaştırma ve kırpmayı sıfırla |
-| ⌘K | En-boy oranı kilidini aç/kapat (varsayılan 16:9) |
-| ⌘1 ⌘2 ⌘3 ⌘4 | Sol üst, sağ üst, sol alt, sağ alt köşeye yerleştir |
-| ⌘Q | Çıkış |
+| ⌘L | Open a URL |
+| ⇧⌘V | Open the link on the clipboard directly |
+| ⌘R | Reload |
+| ⌘W | Hide the window (restore it from the menu) |
+| ⌘] / ⌘[ | Increase / decrease opacity (30%–100%) |
+| ⌘= / ⌘- | Zoom in / out |
+| ⌥⌘↓ / ⌥⌘↑ | Crop top-bottom black bars / crop less |
+| ⌥⌘→ / ⌥⌘← | Crop side black bars / crop less |
+| ⌘0 | Reset zoom and crop |
+| ⌘K | Toggle aspect-ratio lock (default 16:9) |
+| ⌘1 ⌘2 ⌘3 ⌘4 | Snap to top-left, top-right, bottom-left, bottom-right corner |
+| ⌘Q | Quit |
 
-Taşıma: üst kenara gelince çıkan çubuktan, boş alandan ya da ⌘ basılıyken herhangi bir yerden sürükleyin.
+Moving the window: drag from the bar that appears at the top edge, from empty space, or from anywhere while holding ⌘.
 
-## Geliştirme
+## Development
 
 ```sh
-swift test                                                      # URL çevirme ve pencere geometrisi testleri (swift-testing)
-swift run FloatPlayer --check "https://youtu.be/dQw4w9WgXcQ?t=42"  # videonun gerçekten oynadığını doğrular
-swift run FloatPlayer --check "<url>" --no-referer               # Referer olmadan (Error 153'ü gösterir)
+swift test                                                         # URL translation and window geometry tests (swift-testing)
+swift run FloatPlayer --check "https://youtu.be/dQw4w9WgXcQ?t=42"  # verifies the video actually plays
+swift run FloatPlayer --check "<url>" --no-referer                 # without a Referer (reproduces Error 153)
 ```
+
+## License
+
+[MIT](LICENSE)
