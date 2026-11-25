@@ -80,7 +80,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, 
         }
         playerView.hasContent = true
         playerView.topBar.titleLabel.stringValue = media.url.host ?? input
+        applyFocusScript(for: media)
         playerView.webView.load(WebViewFactory.request(for: media))
+    }
+
+    private func applyFocusScript(for media: ResolvedMedia) {
+        if case .web = media.kind {
+            PlayerFocus.install(on: playerView.webView, enabled: settings.focusPlayer)
+        } else {
+            PlayerFocus.uninstall(from: playerView.webView)
+        }
     }
 
     private func open(_ input: String) {
@@ -154,6 +163,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, 
     @objc func reload(_ sender: Any?) {
         guard let current else { return }
         playerView.webView.load(WebViewFactory.request(for: current))
+    }
+
+    @objc func toggleFocusPlayer(_ sender: Any?) {
+        settings.focusPlayer.toggle()
+        guard case .web = current?.kind else { return }
+        PlayerFocus.set(settings.focusPlayer, on: playerView.webView)
     }
 
     @objc func toggleVisible(_ sender: Any?) {
@@ -234,6 +249,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, 
         switch item.action {
         case #selector(setOpacity(_:)):
             item.state = Int((settings.opacity * 100).rounded()) == item.tag ? .on : .off
+        case #selector(toggleFocusPlayer(_:)):
+            item.state = settings.focusPlayer ? .on : .off
         case #selector(toggleAspectLock(_:)):
             item.state = settings.aspectLocked ? .on : .off
         case #selector(setAspect(_:)):
@@ -287,6 +304,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, 
         menu.addItem(item("URL Aç…", #selector(promptForURL(_:)), "l"))
         menu.addItem(item("Panodaki Bağlantıyı Aç", #selector(openFromClipboard(_:)), "v", [.command, .shift]))
         menu.addItem(item("Yenile", #selector(reload(_:)), "r"))
+        menu.addItem(item("Yalnız Oynatıcıyı Göster", #selector(toggleFocusPlayer(_:)), "p"))
         menu.addItem(.separator())
         menu.addItem(item("Pencereyi Gizle", #selector(toggleVisible(_:)), "w"))
 

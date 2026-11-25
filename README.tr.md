@@ -20,6 +20,7 @@ bash scripts/make-app.sh    # sadece dist/FloatPlayer.app üretir
 | ⌘L | URL aç |
 | ⇧⌘V | Panodaki bağlantıyı doğrudan aç |
 | ⌘R | Yenile |
+| ⌘P | Yalnız oynatıcıyı göster: sıradan sitelerde gömülü oynatıcı (ör. Close/Rapid) pencereyi doldurur; başka kaynak/bölüm seçmek için kapatın |
 | ⌘W | Pencereyi gizle (menüden geri gösterilir) |
 | ⌘] / ⌘[ | Saydamlık artır / azalt (%30–%100) |
 | ⌘= / ⌘- | Yakınlaştır / uzaklaştır |
@@ -38,6 +39,7 @@ Taşıma: üst kenara gelince çıkan çubuktan, boş alandan ya da ⌘ basılı
 swift test                                                      # URL çevirme ve pencere geometrisi testleri (swift-testing)
 swift run FloatPlayer --check "https://youtu.be/dQw4w9WgXcQ?t=42"  # videonun gerçekten oynadığını doğrular
 swift run FloatPlayer --check "<url>" --no-referer               # Referer olmadan (Error 153'ü gösterir)
+swift run FloatPlayer --check "<url>" --layout [--no-focus]      # sayfadaki oynatıcı pencereyi dolduruyor mu? (Tests/Fixtures içinde sahte sayfalar var)
 ```
 
 ## Lisans
