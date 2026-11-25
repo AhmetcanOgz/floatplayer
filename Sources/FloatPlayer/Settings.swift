@@ -11,6 +11,7 @@ final class Settings {
             "cropH": 0.0,
             "cropV": 0.0,
             "aspectLocked": true,
+            "focusPlayer": true,
             "aspect": AspectRatio.wide.rawValue,
         ])
     }
@@ -49,6 +50,12 @@ final class Settings {
     var cropV: CGFloat {
         get { CGFloat(defaults.double(forKey: "cropV")) }
         set { defaults.set(Double(newValue), forKey: "cropV") }
+    }
+
+    /// On ordinary web pages, stretch the detected video player over the window and hide the rest of the page.
+    var focusPlayer: Bool {
+        get { defaults.bool(forKey: "focusPlayer") }
+        set { defaults.set(newValue, forKey: "focusPlayer") }
     }
 
     var aspectLocked: Bool {

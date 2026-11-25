@@ -20,6 +20,7 @@ bash scripts/make-app.sh    # only produces dist/FloatPlayer.app
 | ⌘L | Open a URL |
 | ⇧⌘V | Open the link on the clipboard directly |
 | ⌘R | Reload |
+| ⌘P | Show only the player: on ordinary sites the embedded player (e.g. Close/Rapid) fills the window; turn off to pick another source or episode |
 | ⌘W | Hide the window (restore it from the menu) |
 | ⌘] / ⌘[ | Increase / decrease opacity (30%–100%) |
 | ⌘= / ⌘- | Zoom in / out |
@@ -38,6 +39,7 @@ Moving the window: drag from the bar that appears at the top edge, from empty sp
 swift test                                                         # URL translation and window geometry tests (swift-testing)
 swift run FloatPlayer --check "https://youtu.be/dQw4w9WgXcQ?t=42"  # verifies the video actually plays
 swift run FloatPlayer --check "<url>" --no-referer                 # without a Referer (reproduces Error 153)
+swift run FloatPlayer --check "<url>" --layout [--no-focus]        # does the page's player fill the window? (Tests/Fixtures has mock pages)
 ```
 
 ## License
